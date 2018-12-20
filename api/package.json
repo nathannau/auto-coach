@@ -1,0 +1,27 @@
+{
+  "name": "api-auto-coatch",
+  "version": "0.0.1",
+  "description": "Web-api for auto-coatch",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nathannau/auto-coatch-api.git"
+  },
+  "author": "Nathan NAU",
+  "license": "GPL V3.0",
+  "bugs": {
+    "url": "https://github.com/nathannau/auto-coatch-api/issues"
+  },
+  "homepage": "https://github.com/nathannau/auto-coatch-api#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}
