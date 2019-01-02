@@ -8,6 +8,7 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, AsyncStorage } from 'react-native';
+import { NavigationActions, StackActions } from 'react-navigation';
 import Splash from './Splash'
 import Login from './Login'
 import CustomButton from './CustomButton'
@@ -47,6 +48,13 @@ export default class App extends Component /*<Props>*/ {
         });
     }).bind(this)
 
+    _navigateTo(route, replace=true) {
+        this.navigator && this.navigator.dispatch(
+            replace ? 
+                StackActions.replace({ routeName : route}) :
+                NavigationActions.navigate({routeName : route})
+        );
+    }
 
     render() {
         //var state = this.state;
@@ -65,7 +73,7 @@ export default class App extends Component /*<Props>*/ {
         );
         */
         return (
-            <AppContainer />
+            <AppContainer ref={nav => this.navigator = nav} />
         );
     }
 
@@ -77,6 +85,7 @@ export default class App extends Component /*<Props>*/ {
             setTimeout(
                 ()=>{
                     console.log(this.props);
+                    this._navigateTo('Menu');
                 }, 
                 5000);
 
