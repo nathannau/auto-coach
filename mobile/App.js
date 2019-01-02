@@ -12,6 +12,7 @@ import Splash from './Splash'
 import Login from './Login'
 import CustomButton from './CustomButton'
 import {Cache} from "react-native-cache";
+import AppContainer from './Navigation'
 
 // const instructions = Platform.select({
 //   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -20,7 +21,7 @@ import {Cache} from "react-native-cache";
 //     'Shake or press menu button for dev menu',
 // });
 
-const screens = { splash:"SPLASH", login:"LOGIN", map:"MAP" };
+// const screens = { splash:"SPLASH", login:"LOGIN", map:"MAP" };
 // type Props = {};
 export default class App extends Component /*<Props>*/ {
 
@@ -28,7 +29,7 @@ export default class App extends Component /*<Props>*/ {
     super();
 
     this.state = { 
-        currentScreen: screens.splash,
+        // currentScreen: screens.splash,
     };
 
     this.cache = new Cache({
@@ -42,24 +43,29 @@ export default class App extends Component /*<Props>*/ {
         this.cache.setItem("login", info.login, ()=>{});
         this.cache.setItem("config", info.config, ()=>{});
         this.cache.setItem("token", info.token, (err, value) => {      
-            this.setState({currentScreen : screens.map});
+            // this.setState({currentScreen : screens.map});
         });
     }).bind(this)
 
 
     render() {
-        var state = this.state;
+        //var state = this.state;
         // <Text style={styles.welcome}>Welcome to React Native!</Text>
         // <Text style={styles.instructions}>To get started, edit App.js</Text>
         // <Text style={styles.instructions}>{instructions}</Text>
         // <Text>Hello React World ! !</Text>
         // <CustomButton/>
         // console.info("render Screen : ", state.currentScreen)
+        /*
         return (
             <View style={styles.container}>
             { state.currentScreen==screens.splash && <Splash />}
             { state.currentScreen==screens.login && <Login onConnect={this.loginConnect} />}
             </View>
+        );
+        */
+        return (
+            <AppContainer />
         );
     }
 
@@ -68,8 +74,14 @@ export default class App extends Component /*<Props>*/ {
         // this.cache.clearAll()
         this.cache.getItem("token", (err, value) => {
             console.log("token : ", value)
-            var isLogged = value | false;
-            this.setState({ currentScreen: isLogged ? screens.map : screens.login });
+            setTimeout(
+                ()=>{
+                    console.log(this.props);
+                }, 
+                5000);
+
+            // var isLogged = value | false;
+            // this.setState({ currentScreen: isLogged ? screens.map : screens.login });
             // this.cache.setItem("key3", key1, (err)=>{});
         });
     }

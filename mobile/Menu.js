@@ -3,15 +3,15 @@ import {StyleSheet, Text, View} from 'react-native';
 
 
 
-export default class Splash extends Component {
+export default class Menu extends Component {
 
-    static navigationOptions = {
-        header: null,
-    }
+    // static navigationOptions = {
+    //     header: null,
+    // }
 
     render() {
         return <View style={styles.toto}>
-            <Text style={{ color: '#FFFFFF', fontSize: 20, fontWeight: 'bold' }}>Auto Coach</Text>
+            <Text style={{ color: '#FFFFFF', fontSize: 20, fontWeight: 'bold' }}>Le menu</Text>
         </View>
     }
 }
