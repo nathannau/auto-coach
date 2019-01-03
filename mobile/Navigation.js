@@ -3,6 +3,7 @@ import { createStackNavigator, createAppContainer } from 'react-navigation'
 //import Search from '../Components/Search'
 import Splash from './Splash'
 import Menu from './Menu'
+import UserEdit from './UserEdit';
 
 
 //Navigation.registerComponent(`navigation.Splash`, () => Splash);
@@ -20,6 +21,12 @@ const AppNavigator =  createStackNavigator({
       title: 'Menu'
     }
   },
+  AddUser: {
+    screen: UserEdit,
+    navigationOptions: {
+      title: 'Nouveau'
+    }
+  }
 })
 
 export default createAppContainer(AppNavigator)
