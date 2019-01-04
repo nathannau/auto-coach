@@ -15,7 +15,12 @@ export default class UserEdit extends Component {
 
     _onSave = (()=>{
         const { navigation } = this.props
-        navigation.state.params.setUser({user:"truc!!"});
+        navigation.state.params.setUser({
+            firstname: this.state.firstname,
+            lastname: this.state.lastname,
+            email: this.state.email,
+            id: this.state.firstname.substr(0,5) + this.state.firstname.substr(0,5) + "-" +  Date.now().toString(36),
+        });
         navigation.goBack();
     }).bind(this);
 

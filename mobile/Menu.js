@@ -13,6 +13,7 @@ export default class Menu extends Component {
         this.config = new Config();
         this.states = {
             users: this.config.getUsers(),
+            currentUser: null,
         }
         console.log("Menu.constructor");
     }
@@ -22,15 +23,16 @@ export default class Menu extends Component {
     // }
 
     _addUser = (() => {
-        this.props.navigation.navigate( 'AddUser', { 
-            setUser:(user)=>{ console.log("addUser !!! ",user);} 
-        }); 
+        this.props.navigation.navigate( 'AddUser', {
+            setUser:(user)=>{ 
+                this.setState({ users:this.config.setUser(user) }); 
+            }
+        });
     }).bind(this)
 
     render() {
-        console.log("Menu.render");
-        var users = this.states.users;
-
+        console.log("Menu.render", this.states);
+        var users = Object.values(this.states.users);
         return <View style={{ flex:1 }} >
             <View style={{ flexDirection:"row", alignContent:"center", alignItems:"center"}}>
                 <TextInput placeholder="Filtre" style={{ marginRight:5, marginLeft:5, height:40, borderWidth:1, flex:1 }} />
@@ -41,12 +43,13 @@ export default class Menu extends Component {
             <FlatList 
                 data={users}
                 keyExtractor={(user) => user.id }
-                renderItem={({user}) => <UserItem user={user} /> }
-            />
+                renderItem={({item:user}) => <UserShow 
+                    user={user} 
+                    selected={this.states.currentUser===user} 
+                    onSelect={(user)=>{this.setState({ currentUser: user}); }}
+                />}
+            /> 
         </View>
-        // return <View style={styles.toto}>
-        //     <Text style={{ color: '#FFFFFF', fontSize: 20, fontWeight: 'bold' }}>Le menu</Text>
-        // </View>
     }
 
     // componentDidMount() {

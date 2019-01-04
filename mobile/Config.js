@@ -36,12 +36,13 @@ export default class Config {
         return Config._state && Config._state[name]; 
     }
     _set(name, value, autoFlush) { 
-        if (Config._state==null) return;
+        if (Config._state==null) return null;
         Config._state[name] = value;
-        if (autoFlush) save();
+        if (autoFlush) this.save();
         Config._watchers.forEach(watcher => {
             if (watcher.name==name) watcher.fn(value);
         });
+        return value;
     }
     _watch(name, fn) { Config._watchers.push({ name:name, fn:fn }); }
     _unwatch(name, fn) {
@@ -51,12 +52,12 @@ export default class Config {
     } 
 
     getLogin() { return this._get('login'); }
-    setLogin(value, autoFlush=true) { this._set('login', value, autoFlush); }
+    setLogin(value, autoFlush=true) { return this._set('login', value, autoFlush); }
     watchLogin(fn) { this._watch('login', fn); }
     unwatchLogin(fn) { this._unwatch('login', fn); }
 
     getToken() { return this._get('token'); }
-    setToken(value, autoFlush=true) { this._set('token', value, autoFlush); }
+    setToken(value, autoFlush=true) { return this._set('token', value, autoFlush); }
     watchToken(fn) { this._watch('token', fn); }
     unwatchToken(fn) { this._unwatch('token', fn); }
 
@@ -65,7 +66,7 @@ export default class Config {
     setUser(user, autoFlush=true) { 
         var users = this.getUsers() || {};
         users[user.id] = user;
-        this._set('users', users, autoFlush); 
+        return this._set('users', users, autoFlush); 
     }
     watchUser(fn) { this._watch('users', fn); }
     unwatchUser(fn) { this._unwatch('users', fn); }
