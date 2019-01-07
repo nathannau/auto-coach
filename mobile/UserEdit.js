@@ -3,14 +3,25 @@ import {StyleSheet, Button, Image, TouchableOpacity, Text, View, TextInput, List
 import Config from './Config';
 
 export default class UserEdit extends Component {
+
+    static navigationOptions = ({ navigation }) => {
+        const user = navigation.getParam('user');
+        return {
+            title: user ? 'Modification' : 'Nouveau',
+        };
+    };
+
     constructor(props) {
         super(props);
 
-        this.state = {
+        const user = props.navigation.getParam('user') || {
             firstname:"",
             lastname:"",
             email:"",
+            id:null,
         };
+
+        this.state = { ...user };
     }
 
     _onSave = (()=>{
@@ -19,7 +30,7 @@ export default class UserEdit extends Component {
             firstname: this.state.firstname,
             lastname: this.state.lastname,
             email: this.state.email,
-            id: this.state.firstname.substr(0,5) + this.state.firstname.substr(0,5) + "-" +  Date.now().toString(36),
+            id: this.state.id || this.state.firstname.substr(0,5) + this.state.firstname.substr(0,5) + "-" +  Date.now().toString(36),
         });
         navigation.goBack();
     }).bind(this);
@@ -53,9 +64,9 @@ export default class UserEdit extends Component {
                     keyboardType="email-address"
                     style={ styles.field } />
             </View>
-            <View style={{ flexDirection:"row-reverse" }}>
+            <View style={{ flexDirection:"row", justifyContent:"space-evenly", marginTop:20, marginLeft:"60%" }}>
+                <Button title="Annuler" color="#ff0000" onPress={ this._onCancel } />
                 <Button title="Enregistrer" onPress={ this._onSave } />
-                <Button title="Annuler" onPress={ this._onCancel } />
             </View>
         </View>;
     }

@@ -6,7 +6,7 @@ app.use(morgan('combined'))
 
 app.listen(port);
 app.get("/", function(req, res) { 
-    console.log("truc");
+    //console.log("truc");
     res.end(JSON.stringify( { "Hello":"World !" }));
 });
 

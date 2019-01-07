@@ -4,6 +4,7 @@ import { createStackNavigator, createAppContainer } from 'react-navigation'
 import Splash from './Splash'
 import Menu from './Menu'
 import UserEdit from './UserEdit';
+import WhiteLicense from './WhiteLicense';
 
 
 //Navigation.registerComponent(`navigation.Splash`, () => Splash);
@@ -21,12 +22,18 @@ const AppNavigator =  createStackNavigator({
       title: 'Menu'
     }
   },
-  AddUser: {
+  EditUser: {
     screen: UserEdit,
     navigationOptions: {
-      title: 'Nouveau'
+      //title: 'Nouveau'
     }
-  }
+  },
+  WhiteLicense: {
+    screen: WhiteLicense,
+    navigationOptions: {
+      title: 'Permis Blanc'
+    }
+  },
 })
 
 export default createAppContainer(AppNavigator)

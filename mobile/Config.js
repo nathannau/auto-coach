@@ -68,6 +68,11 @@ export default class Config {
         users[user.id] = user;
         return this._set('users', users, autoFlush); 
     }
+    removeUser(user, autoFlush=true) { 
+        var users = this.getUsers() || {};
+        delete users[user.id];
+        return this._set('users', users, autoFlush); 
+    }
     watchUser(fn) { this._watch('users', fn); }
     unwatchUser(fn) { this._unwatch('users', fn); }
 
