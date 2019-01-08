@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
-import {StyleSheet, Button, Image, TouchableOpacity, Text, View, TextInput, ListView, FlatList} from 'react-native';
+import React, {Component} from 'react'
+import {StyleSheet, Button, Image, TouchableOpacity, Text, View, TextInput, ListView, FlatList} from 'react-native'
 import MapView from 'react-native-maps'
-import Config from './Config';
+import Config from './Config'
+import AnnotationMenu from './AnnotationMenu'
 
 export default class WhiteLicense extends Component {
     constructor(props) {
@@ -43,6 +44,12 @@ export default class WhiteLicense extends Component {
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421,
             }} style={{ flex:1 }} ></MapView>
+            <View pointerEvents={'box-none'} style={{ position:"absolute", flex:1, width:200, height:200, backgroundColor:"#00880033" }}>
+                <View style={{ width:100, height:100, backgroundColor:"#88000033" }}></View>
+                <TouchableOpacity onPress={ ()=>{ console.log('prout !'); } } style={{ width:100, height:100, backgroundColor:"#ff000033" }}></TouchableOpacity>
+  
+                <AnnotationMenu></AnnotationMenu>
+            </View>
         </View>;
     }
 

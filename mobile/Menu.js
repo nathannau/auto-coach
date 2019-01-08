@@ -14,6 +14,7 @@ export default class Menu extends Component {
         this.state = {
             users: this.config.getUsers() || {},
             currentUser: null,
+            filter:"",
         }
         //console.log("Menu.constructor");
     }
@@ -69,9 +70,19 @@ export default class Menu extends Component {
         //console.log("Menu.render", this.state);
         //var states = this.state 
         var users = Object.values(this.state.users);
+        var filter = this.state.filter.toLowerCase().trim();
+        if (filter!="")
+            users = users.filter(user=>
+                user.firstname.indexOf(filter)>=0 ||
+                user.lastname.indexOf(filter)>=0);
+
         return <View style={{ flex:1 }} >
             <View style={{ flexDirection:"row", alignContent:"center", alignItems:"center"}}>
-                <TextInput placeholder="Filtre" style={{ marginRight:5, marginLeft:5, height:40, borderWidth:1, flex:1 }} />
+                <TextInput 
+                    placeholder="Filtre" 
+                    value={this.state.filter} 
+                    onChangeText={text => {this.setState({filter: text})}} 
+                    style={{ marginRight:5, marginLeft:5, height:40, borderWidth:1, flex:1 }} />
                 <TouchableOpacity onPress={this._addUser} style={{ width:40, marginRight:5 }}>
                     <Image source={require('./assets/ui/plus.png')} style={{ height:40, width:40 }} />
                 </TouchableOpacity>

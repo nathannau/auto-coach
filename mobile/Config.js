@@ -76,4 +76,19 @@ export default class Config {
     watchUser(fn) { this._watch('users', fn); }
     unwatchUser(fn) { this._unwatch('users', fn); }
 
+    getAnnotations() { return this._get('annotations'); }
+    getAnnotation(id) { return this._get('annotations')[id]; }
+    setAnnotation(annotation, autoFlush=true) { 
+        var annotations = this.getAnnotations() || {};
+        annotations[annotation.id] = annotation;
+        return this._set('annotations', annotations, autoFlush); 
+    }
+    removeAnnotation(annotation, autoFlush=true) { 
+        var annotations = this.getAnnotations() || {};
+        delete annotations[annotation.id];
+        return this._set('annotations', annotations, autoFlush); 
+    }
+    watchAnnotation(fn) { this._watch('annotations', fn); }
+    unwatchAnnotation(fn) { this._unwatch('annotations', fn); }
+
 }
