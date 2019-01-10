@@ -11,5 +11,15 @@ export default class Api {
         else
             setTimeout(cbError, 2000);
     }
+
+    static GetAnnotation(cbSucces, cbError) {
+        if (user!="err")
+            cbSucces({
+                token: "le_token",
+                config: {},
+            });
+        else
+            setTimeout(cbError, 2000);
+    }
     
 }

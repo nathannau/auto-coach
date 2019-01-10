@@ -25,3 +25,4 @@ Ecrans :
 
 
 
+https://medium.com/@piyushgupta_81472/caching-images-react-native-96266cdc4c2f

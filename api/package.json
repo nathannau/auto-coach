@@ -4,8 +4,9 @@
   "description": "Web-api for auto-coatch",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "build": "babel src -d dist",
+    "start": "nodemon --exec babel-node src/server.js",
+    "serve": "node dist/serve.js"
   },
   "repository": {
     "type": "git",
@@ -18,10 +19,16 @@
   },
   "homepage": "https://github.com/nathannau/auto-coatch-api#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.3",
     "express": "^4.16.4",
+    "http-errors": "^1.7.1",
     "morgan": "^1.9.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
     "nodemon": "^1.18.9"
   }
 }
