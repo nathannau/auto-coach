@@ -84,10 +84,10 @@ export default class Menu extends Component {
                     onChangeText={text => {this.setState({filter: text})}} 
                     style={{ marginRight:5, marginLeft:5, height:40, borderWidth:1, flex:1 }} />
                 <TouchableOpacity onPress={this._addUser} style={{ width:40, marginRight:5 }}>
-                    <Image source={require('./assets/ui/plus.png')} style={{ height:40, width:40 }} />
+                    <Image source={require('./../assets/ui/plus.png')} style={{ height:40, width:40 }} />
                 </TouchableOpacity>
             </View>
-            <FlatList 
+            <FlatList  
                 data={users}
                 keyExtractor={(user) => user.id }
                 renderItem={({item:user}) => <UserShow 

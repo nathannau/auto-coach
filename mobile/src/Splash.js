@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-
+import Api from './Api';
 
 
 export default class Splash extends Component {
