@@ -12,7 +12,7 @@ export default class Api {
             setTimeout(cbError, 2000);
     }
 
-    static GetAnnotation(cbSucces, cbError) {
+    static GetAnnotations(cbSucces, cbError) {
         if (user!="err")
             cbSucces({
                 token: "le_token",
