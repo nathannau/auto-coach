@@ -15,12 +15,12 @@ router.get('/', function(req, res, next) {
 router.get('/annotations', function(req, res, next) {
     console.log(res.end);
     res.json([
-        { "stop":"stop.png" }
+        { "name":"stop", "path":"icons/stop.png" }
     ]);
     res.end();
     //res.end(JSON.stringify( { "Hello":"World ! 3" }));
 //  res.render('index', { title: 'Express' });
 });
-GetAnnotations
+//GetAnnotations
 
 export default router;

@@ -14,6 +14,7 @@ import { NavigationActions, StackActions } from 'react-navigation';
 // import CustomButton from './CustomButton'
 import AppContainer from './Navigation'
 import Config from './Config'
+import Resources from './Resources'
 
 export default class App extends Component {
 
@@ -25,6 +26,7 @@ export default class App extends Component {
         };
 
         this.config = new Config();
+        this.resources = new Resources();
     }
 
     _navigateTo(route, replace=true) {
@@ -44,9 +46,10 @@ export default class App extends Component {
 
     componentDidMount() {
         var counter = 0;
-        navToNext = ()=>{counter++; if (counter==2) this._navigateTo('Menu'); }
+        navToNext = ()=>{counter++; if (counter==3) this._navigateTo('Menu'); }
         setTimeout(navToNext, 2000);        
         this.config.load(navToNext);
+        this.resources.load().then(navToNext);
     }
 }
 

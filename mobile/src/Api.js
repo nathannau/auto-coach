@@ -13,14 +13,10 @@ export default class Api {
     }
 
     static GetAnnotations(cbSucces, cbError) {
-        fetch(dataConfig.webhost + '/')
-        if (user!="err")
-            cbSucces({
-                token: "le_token",
-                config: {},
-            });
-        else
-            setTimeout(cbError, 2000);
+        fetch(dataConfig.apiHost + '/annotations', { method: "GET"}).then(
+            (res)=>{res.json().then(cbSucces)},
+            (err)=>{ console.log(err); cbError && cbError(err)}
+        );
     }
     
 }

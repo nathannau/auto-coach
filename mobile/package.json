@@ -10,9 +10,11 @@
     "react": "16.6.3",
     "react-native": "0.57.8",
     "react-native-cache": "^1.1.5",
+    "react-native-fs": "^2.13.3",
     "react-native-gesture-handler": "^1.0.12",
     "react-native-maps": "^0.22.1",
-    "react-navigation": "^3.0.9"
+    "react-navigation": "^3.0.9",
+    "shorthash": "0.0.2"
   },
   "devDependencies": {
     "babel-jest": "23.6.0",
