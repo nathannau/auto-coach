@@ -17,19 +17,23 @@ export default class Config {
         return Config._state==null;
     }
 
-    load(then=null) {
-        Config._cache.getItem("state", (err, value) => { 
-            Config._state = value || {}; 
-            then && then();
-        });
+    load() {
+        return new Promise((resolve)=>{
+            Config._cache.getItem("state", (err, value) => { 
+                Config._state = value || {}; 
+                resolve();
+            });
+        })
     }
 
-    save(then=null) {
-        Config._cache.setItem(
-            "state", 
-            Config._state, 
-            ()=>{ then && then(); }
-        );
+    save() {
+        return new Promise((resolve)=>{
+            Config._cache.setItem(
+                "state", 
+                Config._state, 
+                ()=>{ then && then(); }
+            );
+        });
     }
 
     _get(name) {
@@ -61,7 +65,7 @@ export default class Config {
     watchToken(fn) { this._watch('token', fn); }
     unwatchToken(fn) { this._unwatch('token', fn); }
 
-    getUsers() { return this._get('users'); }
+    getUsers() { return this._get('users') || []; }
     getUser(id) { return this._get('users')[id]; }
     setUser(user, autoFlush=true) { 
         var users = this.getUsers() || {};
@@ -76,7 +80,7 @@ export default class Config {
     watchUser(fn) { this._watch('users', fn); }
     unwatchUser(fn) { this._unwatch('users', fn); }
 
-    getAnnotations() { return this._get('annotations'); }
+    getAnnotations() { return this._get('annotations') || []; }
     getAnnotation(id) { return this._get('annotations')[id]; }
     setAnnotation(annotation, autoFlush=true) { 
         var annotations = this.getAnnotations() || {};

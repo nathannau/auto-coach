@@ -48,7 +48,7 @@ export default class App extends Component {
         var counter = 0;
         navToNext = ()=>{counter++; if (counter==3) this._navigateTo('Menu'); }
         setTimeout(navToNext, 2000);        
-        this.config.load(navToNext);
+        this.config.load().then(navToNext);
         this.resources.load().then(navToNext);
     }
 }

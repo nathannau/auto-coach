@@ -16,7 +16,7 @@ export default class Resources {
     }
 
     load() {
-        return new Promise((resole)=>{
+        return new Promise((resolve)=>{
             var state = {};
             
             var nbResources = 1;
@@ -26,7 +26,7 @@ export default class Resources {
                 if (nbResources==0)
                 {
                     Resources._state = state;
-                    resole();
+                    resolve();
                 }
             }
         
@@ -40,7 +40,7 @@ export default class Resources {
             Api.GetAnnotations((items)=>{
                 var annotations = {};
                 const base = (Platform.OS === 'android') ? 'file://' : ''; 
-                console.log("CachesDirectoryPath : " ,fs.CachesDirectoryPath);
+                // console.log("CachesDirectoryPath : " ,fs.CachesDirectoryPath);
 
                 var nbItems = items.length;
                 var assignFile = (name, path) =>
@@ -50,17 +50,19 @@ export default class Resources {
                     if (nbItems==0) resolve(annotations);
                 }
                 for (var item of items) {
-                    var file = sh.unique(item.path);
-                    var path =`${base}${fs.CachesDirectoryPath}/${file}`;//.png
+                    let file = sh.unique(item.path);
+                    let path = `${base}${fs.CachesDirectoryPath}/${file}`;//.png
+                    let url = `${dataConfig.assetsHost}/${item.path}`;
+                    let name = item.name;
                     fs.exists(path).then(exists => {
                         if(exists) 
-                            assignFile(item.name, path);
+                            assignFile(name, path);
                         else 
                             fs.downloadFile({
-                                fromUrl:`${dataConfig.assetsHost}/${item.path}`, 
+                                fromUrl:url, 
                                 toFile: path,
                             }).promise.then((r)=>{ 
-                                assignFile(item.name, path);
+                                assignFile(name, path);
                             }) ;
                     });
                 }

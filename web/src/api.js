@@ -15,7 +15,11 @@ router.get('/', function(req, res, next) {
 router.get('/annotations', function(req, res, next) {
     console.log(res.end);
     res.json([
-        { "name":"stop", "path":"icons/stop.png" }
+        { "name":"stop", "path":"icons/stop.png" },
+        { "name":"no-stopping", "path":"icons/no-stopping.png" },
+        { "name":"prohibited", "path":"icons/prohibited.png" },
+        { "name":"speed-limit", "path":"icons/speed-limit.png" },
+        { "name":"traffic-lights", "path":"icons/traffic-lights.png" },
     ]);
     res.end();
     //res.end(JSON.stringify( { "Hello":"World ! 3" }));
