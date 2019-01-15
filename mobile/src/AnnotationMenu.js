@@ -14,22 +14,40 @@ export default class AnnotationMenu extends Component {
         this.resources = new Resources();
 
         this.state = {
-            icones: this.resources.getAnnotations(),
+            icons: this.resources.getAnnotations(),
             items: this.config.getAnnotations(),
         }
 
     } 
 
     _renderZone(index) {
-        //console.log("_renderZone : ", index); 
-//        if ()
-        return <TouchableOpacity key={`btn_${index}`} onPress={()=>{}} style={{ width:100, height:100, backgroundColor:"#880000" }}>
-        
+        var iconNames = index==0 ? 
+            Object.keys(this.state.icons).filter((_, i)=>i<3) : 
+            this.state.items.filter(item=>item.position==index)
+                .filter((_, i)=>i<3).map(item=>item.name);
+
+        var nbIcon = iconNames.length;
+        const len = 150;
+        const iLen = len / 2;
+        const step = len / (nbIcon+5);
+
+
+        var images = iconNames.map((name, i)=>
+            <Image source={{uri:this.state.icons[name]}} key={ `icon_${i}` }
+                style={{ 
+                    position:"absolute", 
+                    width:iLen, height:iLen, zIndex:nbIcon-i+1,
+                    top:step*(i+3)-iLen/2, left:step*(i+3)-iLen/2 
+                }}
+            />
+        );
+
+        return <TouchableOpacity key={`btn_${index}`} onPress={()=>{}} style={{ width:len, height:len, }}>
+            { images }
         </TouchableOpacity>
 
     }
     _renderZones() {
-        console.log("_renderZones");
         var max = Math.max(...this.state.items.map((item)=>{item.position}), 0);
         return range(0,max).map(index => this._renderZone(index) );
     }
