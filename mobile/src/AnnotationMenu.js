@@ -16,9 +16,12 @@ export default class AnnotationMenu extends Component {
         this.state = {
             icons: this.resources.getAnnotations(),
             items: this.config.getAnnotations(),
+            currentList: -1,
         }
 
-    } 
+    }
+
+    _clickIcon = (()=>{}).bind(this);
 
     _renderZone(index) {
         var iconNames = index==0 ? 
@@ -42,7 +45,9 @@ export default class AnnotationMenu extends Component {
             />
         );
 
-        return <TouchableOpacity key={`btn_${index}`} onPress={()=>{}} style={{ width:len, height:len, }}>
+        return <TouchableOpacity key={`btn_${index}`} 
+            onPress={()=>{if (nbIcon>1) this.setState({currentList:index}); else this._clickIcon() }} 
+            style={{ width:len, height:len, }}>
             { images }
         </TouchableOpacity>
 
@@ -51,10 +56,19 @@ export default class AnnotationMenu extends Component {
         var max = Math.max(...this.state.items.map((item)=>{item.position}), 0);
         return range(0,max).map(index => this._renderZone(index) );
     }
+    _renderList() {
+        var currentList = this.state.currentList;
+        if (currentList<0) return null;
+        var items = currentList == 0 ?
+            Object.keys(this.state.icons).map(name=>({position:0, name:name, libelle:""})):
+            this.state.items.filter(item=>item.position==currentList);
+        console.log(items);
+    }
 
     render() {
         return <View style={{ backgroundColor:"#008800", flex:1, flexDirection:"row", flexWrap:"wrap" }}>
             { this._renderZones() }
+            { this._renderList() }
         </View>
     }
 
