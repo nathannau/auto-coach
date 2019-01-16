@@ -63,6 +63,7 @@ export default class AnnotationMenu extends Component {
             Object.keys(this.state.icons).map(name=>({position:0, name:name, libelle:""})):
             this.state.items.filter(item=>item.position==currentList);
         console.log(items);
+        return <ModalList data={items} />
     }
 
     render() {
