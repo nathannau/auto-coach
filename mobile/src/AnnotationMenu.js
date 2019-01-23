@@ -1,11 +1,15 @@
 import React, {Component} from 'react';
 import {StyleSheet, Button, Image, TouchableOpacity, Text, View, TextInput, ListView, FlatList} from 'react-native';
+import { BackHandler } from "react-native";
+import { withNavigation } from 'react-navigation';
+import range from 'fill-range'
 import MapView from 'react-native-maps'
 import Config from './Config';
 import Resources from './Resources';
-import range from 'fill-range'
+import ModalList from './ModalList';
 
-export default class AnnotationMenu extends Component {
+
+class AnnotationMenu extends Component {
 
     constructor(props) {
         super(props);
@@ -19,15 +23,36 @@ export default class AnnotationMenu extends Component {
             currentList: -1,
         }
 
+        this._didFocusSubscription = props.navigation.addListener('didFocus', payload =>
+            BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
+      );
     }
-
+    componentDidMount() {
+        this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload =>
+            BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
+        );
+    }
+    onBackButtonPressAndroid = () => {
+        console.log("onBackButtonPressAndroid");
+        // if (this.isSelectionModeEnabled()) {
+            // this.disableSelectionMode();
+            return true;
+        // } else {
+            // return false;
+        // }
+    };
+    componentWillUnmount() {
+        this._didFocusSubscription && this._didFocusSubscription.remove();
+        this._willBlurSubscription && this._willBlurSubscription.remove();
+    }
+    
     _clickIcon = (()=>{}).bind(this);
 
     _renderZone(index) {
         var iconNames = index==0 ? 
             Object.keys(this.state.icons).filter((_, i)=>i<3) : 
             this.state.items.filter(item=>item.position==index)
-                .filter((_, i)=>i<3).map(item=>item.name);
+                .filter((_, i)=>i<3).map(item=>item.icon);
 
         var nbIcon = iconNames.length;
         const len = 150;
@@ -60,7 +85,7 @@ export default class AnnotationMenu extends Component {
         var currentList = this.state.currentList;
         if (currentList<0) return null;
         var items = currentList == 0 ?
-            Object.keys(this.state.icons).map(name=>({position:0, name:name, libelle:""})):
+            Object.keys(this.state.icons).map((name, index)=>({position:0, icon:name, text:"", id:index.toString()})):
             this.state.items.filter(item=>item.position==currentList);
         console.log(items);
         return <ModalList data={items} />
@@ -75,4 +100,6 @@ export default class AnnotationMenu extends Component {
 
 
 }
+
+export default withNavigation(AnnotationMenu)
 

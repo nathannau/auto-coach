@@ -87,7 +87,7 @@ export default class Menu extends Component {
                     <Image source={require('./../assets/ui/plus.png')} style={{ height:40, width:40 }} />
                 </TouchableOpacity>
             </View>
-            <FlatList  
+            <FlatList
                 data={users}
                 keyExtractor={(user) => user.id }
                 renderItem={({item:user}) => <UserShow 
