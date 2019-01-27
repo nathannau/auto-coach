@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Button, Image, TouchableOpacity, Text, View, TextInput, ListView, FlatList} from 'react-native';
 import { BackHandler } from "react-native";
-import { withNavigation } from 'react-navigation';
+import { withNavigation, HeaderBackButton } from 'react-navigation';
 import range from 'fill-range'
 import MapView from 'react-native-maps'
 import Config from './Config';
@@ -10,6 +10,18 @@ import ModalList from './ModalList';
 
 
 class AnnotationMenu extends Component {
+
+    //       static navigationOptions = ({ navigation }) => ({
+    //     headerLeft : (
+    //         // <HeaderBackButton />
+    //         // <TouchableOpacity onPress={() => { navigation.goBack() }}>
+    //         //     <View style={{ justifyContent: 'center', headerLayoutPreset: 'center', marginLeft: 15, width: 40, height: 40 }}>
+    //         //           <Image source={ require('../image/navBack.png') }/>
+    //         //     </View>
+    //         // </TouchableOpacity>
+    //         <Text>toto</Text>
+    //     ),
+    // });
 
     constructor(props) {
         super(props);
@@ -23,6 +35,9 @@ class AnnotationMenu extends Component {
             currentList: -1,
         }
 
+//        console.log(props.navigation);
+//        props.navigation.addListener('Navigation/BACK', ()=>{console.log("TRUC Nav/BACK")});
+//        props.navigation.addListener('BACK', ()=>{console.log("TRUC BACK")});
         this._didFocusSubscription = props.navigation.addListener('didFocus', payload =>
             BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
       );

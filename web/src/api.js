@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 
 /* GET annotations. */
 router.get('/annotations', function(req, res, next) {
-    console.log(res.end);
+//    console.log(res.end);
     res.json([
         { "name":"stop", "path":"icons/stop.png" },
         { "name":"no-stopping", "path":"icons/no-stopping.png" },

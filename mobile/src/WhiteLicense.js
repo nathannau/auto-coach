@@ -1,17 +1,44 @@
 import React, {Component} from 'react'
 import {StyleSheet, Button, Image, TouchableOpacity, Text, View, TextInput, ListView, FlatList} from 'react-native'
+import { withNavigation, HeaderBackButton } from 'react-navigation';
 import Config from './Config'
 import AnnotationMenu from './AnnotationMenu'
 
 export default class WhiteLicense extends Component {
+
+    static navigationOptions = ({ navigation }) => {
+        const {params = {}} = navigation.state;
+        return {
+            headerLeft : (
+                <HeaderBackButton onPress={()=>{
+                    
+                    console.log(navigation, params)
+                }
+
+                } />
+            // <TouchableOpacity onPress={() => { navigation.goBack() }}>
+            //     <View style={{ justifyContent: 'center', headerLayoutPreset: 'center', marginLeft: 15, width: 40, height: 40 }}>
+            //           <Image source={ require('../image/navBack.png') }/>
+            //     </View>
+            // </TouchableOpacity>
+            // <Text>toto</Text>
+            ),
+        }
+    };
+
     constructor(props) {
         super(props);
 
-        // this.state = {
-        //     user: null,            
-        // };
+        this.state = {
+            listIsOpen: false,            
+        };
     }
 
+    componentDidMount() {
+        this.props.navigation.setParams({
+            handleThis: "truc"
+        });
+    }
     // _onPressItem = (()=>{
     //     this.props.onSelect && this.props.onSelect(this.props.user)
     // }).bind(this)
