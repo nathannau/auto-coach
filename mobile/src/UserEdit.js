@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Button, Image, TouchableOpacity, Text, View, TextInput, ListView, FlatList} from 'react-native';
 import Config from './Config';
+import User from './Models/User';
 
 export default class UserEdit extends Component {
 
@@ -14,24 +15,12 @@ export default class UserEdit extends Component {
     constructor(props) {
         super(props);
 
-        const user = props.navigation.getParam('user') || {
-            firstname:"",
-            lastname:"",
-            email:"",
-            id:null,
-        };
-
-        this.state = { ...user };
+        this.state = { user:new User(props.navigation.getParam('user')) };
     }
 
     _onSave = (()=>{
         const { navigation } = this.props
-        navigation.state.params.setUser({
-            firstname: this.state.firstname,
-            lastname: this.state.lastname,
-            email: this.state.email,
-            id: this.state.id || this.state.firstname.substr(0,5) + this.state.firstname.substr(0,5) + "-" +  Date.now().toString(36),
-        });
+        navigation.state.params.setUser(this.state.user.export());
         navigation.goBack();
     }).bind(this);
 
@@ -45,22 +34,22 @@ export default class UserEdit extends Component {
             <View style={ styles.row }>
                 <Text style={ styles.label }>Nom : </Text>
                 <TextInput 
-                    value={this.state.lastname} 
-                    onChangeText={(value)=>{this.setState({lastname:value})}} 
+                    value={this.state.user.getLastname()} 
+                    onChangeText={(value)=>{this.setState({user:this.state.user.setLastname(value)})}} 
                     style={ styles.field } />
             </View>
             <View style={ styles.row }>
                 <Text style={ styles.label }>Prénom : </Text>
                 <TextInput 
-                    value={this.state.firstname} 
-                    onChangeText={(value)=>{this.setState({firstname:value})}} 
+                    value={this.state.user.getFirstname()} 
+                    onChangeText={(value)=>{this.setState({user:this.state.user.setFirstname(value)})}} 
                     style={ styles.field } />
             </View>
             <View style={ styles.row }>
                 <Text style={ styles.label }>Email : </Text>
                 <TextInput 
-                    value={this.state.email} 
-                    onChangeText={(value)=>{this.setState({email:value})}} 
+                    value={this.state.user.getEmail()} 
+                    onChangeText={(value)=>{this.setState({user:this.state.user.setEmail(value)})}} 
                     keyboardType="email-address"
                     style={ styles.field } />
             </View>

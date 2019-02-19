@@ -31,7 +31,7 @@ export default class Config {
             Config._cache.setItem(
                 "state", 
                 Config._state, 
-                ()=>{ then && then(); }
+                resolve
             );
         });
     }
@@ -82,7 +82,7 @@ export default class Config {
 
     getAnnotations() { return this._get('annotations') || []; }
     getAnnotation(id) { return this._get('annotations')[id]; }
-    setAnnotation(annotation, autoFlush=true) { 
+    setAnnotation(annotation, autoFlush=true) {
         var annotations = this.getAnnotations() || {};
         annotations[annotation.id] = annotation;
         return this._set('annotations', annotations, autoFlush); 
